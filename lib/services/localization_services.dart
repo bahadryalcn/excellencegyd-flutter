@@ -8,6 +8,7 @@ import 'package:websitegyd/localization/fr_french.dart';
 import 'package:websitegyd/localization/it_italian.dart';
 import 'package:websitegyd/localization/ja_japanese.dart';
 import 'package:websitegyd/localization/tr_turkish.dart';
+import 'package:websitegyd/models/languages_item.dart';
 
 class LocalizationService extends Translations {
   // Default locale
@@ -57,16 +58,35 @@ class LocalizationService extends Translations {
       };
 
   // Gets locale from language, and updates the locale
-  void changeLocale(String lang) {
-    final locale = _getLocaleFromLanguage(lang);
-    Get.updateLocale(locale);
+  bool changeLocale(String lang) {
+    try {
+      var locale = _getLocaleFromLanguage(lang);
+      Get.updateLocale(locale);
+      // sleep1();
+      return true;
+    } catch (ee) {
+      print('Error: Language can not added yet');
+      return false;
+    }
   }
 
-  // Finds language in `langs` list and returns it as Locale
   Locale _getLocaleFromLanguage(String lang) {
     for (int i = 0; i < langs.length; i++) {
-      if (lang == langs[i]) return locales[i];
+      if (lang == langs[i]) {
+        return locales[i];
+      } else {}
     }
     return Get.locale;
+  }
+
+  LanguageItemWidget getLanguageFromLocale(String code) {
+    for (int i = 0; i < langs.length; i++) {
+      if (code == locales[i].toString()) {
+        final aa = LanguageItemWidget(langs[i].toString(),
+            'assets/images/flags/${Get.locale.languageCode}.png');
+        return aa;
+      }
+    }
+    return null;
   }
 }

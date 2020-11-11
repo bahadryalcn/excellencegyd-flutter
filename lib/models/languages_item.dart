@@ -11,7 +11,6 @@ class LanguageItemWidget implements LanguagesItem {
   LanguageItemWidget(this.name, this.iconPath);
 
   Widget buildLanguageItem(BuildContext context) {
-    print('gled');
     return Row(
       children: [
         Container(

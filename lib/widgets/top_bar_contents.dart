@@ -1,12 +1,22 @@
+import 'dart:async';
+
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:websitegyd/constants/strings.dart';
+import 'package:websitegyd/models/languages_item.dart';
 import 'package:websitegyd/services/localization_services.dart';
 
 // ignore: must_be_immutable
-class TopBarContents extends StatelessWidget {
-  static String dropdownValue;
-  // static String dropdownValue;
+class TopBarContents extends StatefulWidget {
+  TopBarContents();
+
+  @override
+  _TopBarContentsState createState() => _TopBarContentsState();
+}
+
+class _TopBarContentsState extends State<TopBarContents> {
+  static LanguageItemWidget dropdownValue;
   final List _isHovering = [
     false,
     false,
@@ -17,14 +27,12 @@ class TopBarContents extends StatelessWidget {
     false,
     false
   ];
+  var _screenSize;
 
-  TopBarContents();
-  @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-
+    _screenSize = MediaQuery.of(context).size;
     return PreferredSize(
-      preferredSize: Size(screenSize.width, 1000),
+      preferredSize: Size(_screenSize.width, 1000),
       child: Container(
         color: Theme.of(context).bottomAppBarColor,
         child: Padding(
@@ -46,33 +54,22 @@ class TopBarContents extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(width: screenSize.width / 8),
+                    SizedBox(width: _screenSize.width / 8),
                     buildInkWell(context, 'home_page'.tr, 0),
-                    SizedBox(width: screenSize.width / 20),
+                    SizedBox(width: _screenSize.width / 20),
                     buildInkWell(context, 'contact_us'.tr, 1),
                   ],
                 ),
               ),
-              IconButton(
-                icon: Icon(Icons.brightness_6),
-                splashColor: Colors.red,
-                splashRadius: 1000,
-                color: Theme.of(context).accentColor,
-                onPressed: () {
-                  DynamicTheme.of(context).setBrightness(
-                      Theme.of(context).brightness == Brightness.dark
-                          ? Brightness.light
-                          : Brightness.dark);
-                },
-              ),
+              buildChangeThemeIcon(context),
               SizedBox(
-                width: screenSize.width / 50,
+                width: _screenSize.width / 50,
               ),
               buildInkWell(context, 'sign_in_button'.tr, 3),
               SizedBox(
-                width: screenSize.width / 50,
+                width: _screenSize.width / 50,
               ),
-              buildLanguage(context, 4),
+              buildLanguageDropDownMenu(context),
             ],
           ),
         ),
@@ -80,32 +77,112 @@ class TopBarContents extends StatelessWidget {
     );
   }
 
-  DropdownButton buildLanguage(BuildContext context, int index) {
+  DropdownButton<LanguagesItem> buildLanguageDropDownMenu(
+      BuildContext context) {
+    var initialLanguage =
+        LocalizationService().getLanguageFromLocale(Get.locale.toString());
     return DropdownButton(
-      hint: Text(
-        'language'.tr,
-        style: TextStyle(
-          color: Theme.of(context).accentColor,
-        ),
-      ),
+      hint: initialLanguage.buildLanguageItem(context),
       dropdownColor: Theme.of(context).hoverColor,
       value: dropdownValue,
-      items: LocalizationService.langs
-          .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
+      items: UniversalStrings.languageItems
+          .map<DropdownMenuItem<LanguagesItem>>((value) {
+        return DropdownMenuItem<LanguagesItem>(
           value: value,
-          child: Text(
-            value,
-            style: TextStyle(color: Theme.of(context).accentColor),
-          ),
+          child: value.buildLanguageItem(context),
         );
       }).toList(),
+      onTap: () {},
       onChanged: (newvalue) {
-        dropdownValue = newvalue;
-        print('Index' + newvalue.toString());
-        LocalizationService().changeLocale(LocalizationService
-            .langs[LocalizationService.langs.indexOf(newvalue)]
-            .toString());
+        try {
+          dropdownValue = newvalue;
+          _bids();
+        } catch (ee) {
+          print(ee.toString());
+        }
+      },
+    );
+  }
+
+  void _bids() async {
+    await Future<void>.delayed(Duration(milliseconds: 500));
+
+    if (LocalizationService().changeLocale(dropdownValue.name)) {
+      LocalizationService().changeLocale(dropdownValue.name);
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return dialogWidget();
+        },
+      );
+      Timer(Duration(milliseconds: 1200), () {
+        if (Navigator.canPop(context)) {
+          Navigator.of(context).pop();
+        }
+      });
+    }
+  }
+
+  Dialog dialogWidget() {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(UniversalStrings.padding),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: Container(
+        alignment: Alignment.center,
+        height: _screenSize.height * 0.2,
+        width: _screenSize.width * 0.3,
+        decoration: BoxDecoration(
+          color: Theme.of(context).accentColor,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.check_circle_outline,
+              color: Colors.green,
+              size: 60,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 16, bottom: 16),
+              child: Text(
+                'language_changed'.tr,
+                style: TextStyle(color: Theme.of(context).canvasColor),
+              ),
+            ),
+            RaisedButton(
+              color: Theme.of(context).canvasColor,
+              onPressed: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text(
+                'okey'.tr,
+                style: TextStyle(color: Theme.of(context).accentColor),
+              ),
+            ),
+          ],
+        ),
+      ),
+      // ),
+    );
+  }
+
+  IconButton buildChangeThemeIcon(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.brightness_6),
+      splashColor: Colors.red,
+      splashRadius: 1000,
+      color: Theme.of(context).accentColor,
+      onPressed: () {
+        DynamicTheme.of(context).setBrightness(
+            Theme.of(context).brightness == Brightness.dark
+                ? Brightness.light
+                : Brightness.dark);
       },
     );
   }

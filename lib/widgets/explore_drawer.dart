@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:websitegyd/constants/strings.dart';
 import 'package:websitegyd/models/languages_item.dart';
+import 'package:get/get.dart';
 import 'package:websitegyd/services/localization_services.dart';
 
 class ExploreDrawer extends StatefulWidget {
@@ -13,22 +16,13 @@ class ExploreDrawer extends StatefulWidget {
 }
 
 class _ExploreDrawerState extends State<ExploreDrawer> {
-  // bool _isProcessing = false;
-  //Languages Items
-  // String _selectedLang = LocalizationService.langs.first;
-  static LanguagesItem dropdownValue;
-  final List<LanguagesItem> languageItems = [
-    LanguageItemWidget('Türkçe', 'assets/images/flags/tr.png'),
-    LanguageItemWidget('中文', 'assets/images/flags/cn.png'),
-    LanguageItemWidget('English', 'assets/images/flags/uk.png'),
-    LanguageItemWidget('Deutsche', 'assets/images/flags/de.png'),
-    LanguageItemWidget('Français', 'assets/images/flags/fr.png'),
-    LanguageItemWidget('Italiano', 'assets/images/flags/it.png'),
-    LanguageItemWidget('عربى', 'assets/images/flags/ar.png'),
-    LanguageItemWidget('日本人', 'assets/images/flags/ja.png'),
-  ];
+  static LanguageItemWidget dropdownValue;
+  var _screenSize;
+
+  int dialogActive = 0;
   @override
   Widget build(BuildContext context) {
+    _screenSize = MediaQuery.of(context).size;
     return Drawer(
       child: Container(
         color: Theme.of(context).bottomAppBarColor,
@@ -38,14 +32,13 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              //Language Drowdown Button
-              buildLanguage(context),
+              buildLanguageDropDownMenu(context),
               SizedBox(height: 20),
               SizedBox(height: 20),
-              buildInkWell(context, 'Home Page'),
+              buildInkWell(context, 'home_page'.tr),
               buildMobileDrawerDiveder(context),
-              buildInkWell(context, 'Contact Us'),
-              buildBottomDesc(context, 'Copyright © 2020 | Excellence GYD'),
+              buildInkWell(context, 'contact_us'.tr),
+              buildBottomDesc(context, 'copyright'.tr),
             ],
           ),
         ),
@@ -53,38 +46,98 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
     );
   }
 
-  Row buildLanguage(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          'Language',
-          style: TextStyle(
-            color: Theme.of(context).accentColor,
-            fontSize: 22,
-          ),
+  DropdownButton<LanguagesItem> buildLanguageDropDownMenu(
+      BuildContext context) {
+    var initialLanguage =
+        LocalizationService().getLanguageFromLocale(Get.locale.toString());
+    return DropdownButton(
+      hint: initialLanguage.buildLanguageItem(context),
+      dropdownColor: Theme.of(context).hoverColor,
+      value: dropdownValue,
+      items: UniversalStrings.languageItems
+          .map<DropdownMenuItem<LanguagesItem>>((value) {
+        return DropdownMenuItem<LanguagesItem>(
+          value: value,
+          child: value.buildLanguageItem(context),
+        );
+      }).toList(),
+      onTap: () {},
+      onChanged: (newvalue) {
+        try {
+          dropdownValue = newvalue;
+          _bids();
+        } catch (ee) {
+          print(ee.toString());
+        }
+      },
+    );
+  }
+
+  void _bids() async {
+    await Future<void>.delayed(Duration(milliseconds: 500));
+
+    if (LocalizationService().changeLocale(dropdownValue.name)) {
+      LocalizationService().changeLocale(dropdownValue.name);
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return dialogWidget();
+        },
+      );
+      Timer(Duration(milliseconds: 1200), () {
+        if (Navigator.canPop(context)) {
+          Navigator.of(context).pop();
+        }
+      });
+    }
+  }
+
+  Dialog dialogWidget() {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(UniversalStrings.padding),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: Container(
+        alignment: Alignment.center,
+        height: _screenSize.height * 0.2,
+        width: _screenSize.width * 0.3,
+        decoration: BoxDecoration(
+          color: Theme.of(context).accentColor,
         ),
-        SizedBox(
-          width: 10,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.check_circle_outline,
+              color: Colors.green,
+              size: 60,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 16, bottom: 16),
+              child: Text(
+                'language_changed'.tr,
+                style: TextStyle(color: Theme.of(context).canvasColor),
+              ),
+            ),
+            RaisedButton(
+              color: Theme.of(context).canvasColor,
+              onPressed: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text(
+                'okey'.tr,
+                style: TextStyle(color: Theme.of(context).accentColor),
+              ),
+            ),
+          ],
         ),
-        DropdownButton(
-          dropdownColor: Theme.of(context).hoverColor,
-          value: dropdownValue,
-          items: languageItems.map(
-            (user) {
-              return DropdownMenuItem(
-                value: user,
-                child: user.buildLanguageItem(context),
-              );
-            },
-          ).toList(),
-          onChanged: (value) {
-            dropdownValue = value;
-            LocalizationService().changeLocale(LocalizationService
-                .langs[UniversalStrings.languageItems.indexOf(value)]
-                .toString());
-          },
-        ),
-      ],
+      ),
+      // ),
     );
   }
 
@@ -157,3 +210,122 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
     );
   }
 }
+
+// DropdownButton<LanguagesItem> buildLanguageDropDownMenu(
+//     BuildContext context) {
+//   var initialLanguage =
+//       LocalizationService().getLanguageFromLocale(Get.locale.toString());
+//   return DropdownButton(
+//     hint: initialLanguage.buildLanguageItem(context),
+//     dropdownColor: Theme.of(context).hoverColor,
+//     value: dropdownValue,
+//     items: UniversalStrings.languageItems
+//         .map<DropdownMenuItem<LanguagesItem>>((value) {
+//       return DropdownMenuItem<LanguagesItem>(
+//         value: value,
+//         child: value.buildLanguageItem(context),
+//       );
+//     }).toList(),
+//     onTap: () {},
+//     onChanged: (newvalue) {
+//       try {
+//         dropdownValue = newvalue;
+//         var myWidget = StreamBuilder(
+//           stream: _bids,
+//           builder: (
+//             BuildContext context,
+//             AsyncSnapshot<int> snapshot,
+//           ) {
+//             List<Widget> children2;
+//             if (snapshot.hasError) {
+//               children2 = <Widget>[
+//                 Icon(
+//                   Icons.error_outline,
+//                   color: Colors.red,
+//                   size: 60,
+//                 ),
+//                 Padding(
+//                   padding: const EdgeInsets.only(top: 16),
+//                   child: Text('Error: ${snapshot.error}'),
+//                 )
+//               ];
+//             } else {
+//               switch (snapshot.connectionState) {
+//                 case ConnectionState.none:
+//                   children2 = <Widget>[
+//                     Icon(
+//                       Icons.info,
+//                       color: Colors.blue,
+//                       size: 60,
+//                     ),
+//                     const Padding(
+//                       padding: EdgeInsets.only(top: 16),
+//                       child: Text('Select a lot'),
+//                     )
+//                   ];
+//                   break;
+//                 case ConnectionState.waiting:
+//                   children2 = <Widget>[
+//                     SizedBox(
+//                       child: const CircularProgressIndicator(),
+//                       width: 60,
+//                       height: 60,
+//                     ),
+//                   ];
+//                   break;
+//                 case ConnectionState.active:
+//                   children2 = [
+//                     SizedBox(
+//                       child: const CircularProgressIndicator(),
+//                       width: 60,
+//                       height: 60,
+//                     ),
+//                   ];
+//                   break;
+//                 case ConnectionState.done:
+//                   children2 = <Widget>[
+//                     CustomDialogBox(
+//                       child: Column(
+//                         children: [
+//                           Icon(
+//                             snapshot.data == 1
+//                                 ? Icons.check_circle_outline
+//                                 : Icons.error,
+//                             color: snapshot.data == 1
+//                                 ? Colors.green
+//                                 : Colors.red,
+//                             size: 60,
+//                           ),
+//                           Padding(
+//                             padding: const EdgeInsets.only(top: 16),
+//                             child: snapshot.data == 1
+//                                 ? Text('language_changed'.tr)
+//                                 : Text('error_occured_changing_language'.tr),
+//                           )
+//                         ],
+//                       ),
+//                     ),
+//                   ];
+//                   break;
+//               }
+//             }
+//             return Column(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               crossAxisAlignment: CrossAxisAlignment.center,
+//               children: children2,
+//             );
+//           },
+//         );
+//         // });
+//         showDialog(
+//           context: context,
+//           builder: (context) => myWidget,
+//         );
+
+//         // print(newvalue.aa());
+//       } catch (ee) {
+//         print(ee.toString());
+//       }
+//     },
+//   );
+// }

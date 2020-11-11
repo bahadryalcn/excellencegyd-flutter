@@ -2,7 +2,7 @@ import 'package:websitegyd/services/localization_services.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:get/get.dart';
-import 'package:hexcolor/hexcolor.dart';
+
 import 'package:websitegyd/view/home.dart';
 
 class ExcellenceGYD extends StatefulWidget {
