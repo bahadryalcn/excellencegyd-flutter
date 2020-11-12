@@ -1,3 +1,4 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:websitegyd/services/localization_services.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
@@ -10,7 +11,45 @@ class ExcellenceGYD extends StatefulWidget {
   _ExcellenceGYDState createState() => _ExcellenceGYDState();
 }
 
+/// flutter pub global run peanut:peanut
+
 class _ExcellenceGYDState extends State<ExcellenceGYD> {
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  // Future<int> _counter;
+  Future<String> applicationLang;
+  @override
+  void initState() {
+    super.initState();
+    aaawdwa();
+    // aa();
+  }
+
+  Future<void> aaawdwa() async {
+    final SharedPreferences prefs = await _prefs;
+    Locale aawda = LocalizationService()
+        .getLocalLanguage(prefs.getString('applicationLang'));
+    LocalizationService.locale = aawda;
+
+    print('Deneme: ' + aawda.toString());
+  }
+
+  Future<void> aa() async {
+    final SharedPreferences prefs = await _prefs;
+    prefs
+        .setString("applicationLang", Get.locale.toString())
+        .then((bool success) {
+      print(success);
+      return applicationLang;
+    });
+
+    print('Thmee' + prefs.getString('applicationLang').toString());
+  }
+
+  Future<void> bb() async {
+    final SharedPreferences prefs = await _prefs;
+    LocalizationService().setLocalLanguage(prefs.getString('applicationLang'));
+  }
+
   @override
   Widget build(BuildContext context) {
     return DynamicTheme(
@@ -25,9 +64,26 @@ class _ExcellenceGYDState extends State<ExcellenceGYD> {
         translations: LocalizationService(),
         fallbackLocale: LocalizationService.fallbackLocale,
         locale: LocalizationService.locale,
-        debugShowCheckedModeBanner: false,
         theme: data,
-        home: HomePage(),
+        // enableLog: true,
+        home: FutureBuilder(
+          future: applicationLang,
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return Container(
+                    alignment: Alignment.center,
+                    child: const CircularProgressIndicator());
+                break;
+              default:
+                if (snapshot.hasError) {
+                  return ErrorPage();
+                } else {
+                  return HomePage();
+                }
+            }
+          },
+        ),
       ),
     );
   }

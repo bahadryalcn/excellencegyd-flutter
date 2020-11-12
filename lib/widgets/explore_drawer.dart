@@ -50,6 +50,7 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
       BuildContext context) {
     var initialLanguage =
         LocalizationService().getLanguageFromLocale(Get.locale.toString());
+
     return DropdownButton(
       hint: initialLanguage.buildLanguageItem(context),
       dropdownColor: Theme.of(context).hoverColor,
@@ -73,22 +74,29 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
     );
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   void _bids() async {
     await Future<void>.delayed(Duration(milliseconds: 500));
 
     if (LocalizationService().changeLocale(dropdownValue.name)) {
       LocalizationService().changeLocale(dropdownValue.name);
-
-      showDialog(
-        context: context,
-        builder: (context) {
-          return dialogWidget();
-        },
-      );
-      Timer(Duration(milliseconds: 1200), () {
-        if (Navigator.canPop(context)) {
-          Navigator.of(context).pop();
-        }
+      setState(() {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return dialogWidget();
+          },
+        );
+        Timer(Duration(milliseconds: 1200), () {
+          if (Navigator.canPop(context)) {
+            Navigator.of(context).pop();
+          }
+        });
       });
     }
   }

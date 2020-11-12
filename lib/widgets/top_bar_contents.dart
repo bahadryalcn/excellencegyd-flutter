@@ -3,9 +3,12 @@ import 'dart:async';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:websitegyd/constants/strings.dart';
 import 'package:websitegyd/models/languages_item.dart';
 import 'package:websitegyd/services/localization_services.dart';
+import 'package:websitegyd/services/shared_preferences_helper.dart';
+import 'package:websitegyd/view/home.dart';
 
 // ignore: must_be_immutable
 class TopBarContents extends StatefulWidget {
@@ -28,6 +31,11 @@ class _TopBarContentsState extends State<TopBarContents> {
     false
   ];
   var _screenSize;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
@@ -79,8 +87,15 @@ class _TopBarContentsState extends State<TopBarContents> {
 
   DropdownButton<LanguagesItem> buildLanguageDropDownMenu(
       BuildContext context) {
+    // print('Dropdown Locale: ' + Get.locale.toString());
+    // print('Dropdown  LocalizationService: ' +
+    //     LocalizationService.applicationLanguage.toString());
+
+    // var currentLang = getAppLanguage();
+    // print(currentLang);
     var initialLanguage =
         LocalizationService().getLanguageFromLocale(Get.locale.toString());
+
     return DropdownButton(
       hint: initialLanguage.buildLanguageItem(context),
       dropdownColor: Theme.of(context).hoverColor,
@@ -104,12 +119,14 @@ class _TopBarContentsState extends State<TopBarContents> {
     );
   }
 
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   void _bids() async {
     await Future<void>.delayed(Duration(milliseconds: 500));
 
     if (LocalizationService().changeLocale(dropdownValue.name)) {
+      // HomePage().app
       LocalizationService().changeLocale(dropdownValue.name);
-
+      setInitialPreferences();
       showDialog(
         context: context,
         builder: (context) {
@@ -121,6 +138,25 @@ class _TopBarContentsState extends State<TopBarContents> {
           Navigator.of(context).pop();
         }
       });
+    }
+  }
+
+  Future<void> setInitialPreferences() async {
+    final SharedPreferences prefs = await _prefs;
+    prefs
+        .setString("applicationLang", Get.locale.toString())
+        .then((bool success) {});
+  }
+
+  Future<String> getAppLanguage() async {
+    final SharedPreferences prefs = await _prefs;
+    // if (prefs.getString('applicationLang').isNotEmpty) {
+    // print('Burada ' + prefs.getString('applicationLang'));
+    // }
+    // String appLang = (prefs.getString('applicationLang'));
+    // return appLang;
+    if (prefs.getString('applicationLanguage').isEmpty) {
+      print('aaa');
     }
   }
 
@@ -168,7 +204,6 @@ class _TopBarContentsState extends State<TopBarContents> {
           ],
         ),
       ),
-      // ),
     );
   }
 

@@ -2,6 +2,7 @@ import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:websitegyd/widgets/bottom_bar.dart';
 import 'package:websitegyd/widgets/carousel.dart';
 import 'package:websitegyd/widgets/destination_heading.dart';
@@ -15,6 +16,7 @@ import 'package:websitegyd/widgets/top_bar_contents.dart';
 
 class HomePage extends StatefulWidget {
   static const String route = '/';
+  // static String applicationLanguage = Get.locale.toString();
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -22,10 +24,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ScrollController _scrollController;
+
   @override
   void initState() {
-    _scrollController = ScrollController();
     super.initState();
+    _scrollController = ScrollController();
   }
 
   List _isHoveringFloatingQuickAccess = [false, false, false, false];
@@ -189,6 +192,46 @@ class _HomePageState extends State<HomePage> {
           fontFamily: 'Montserrat',
           fontWeight: FontWeight.w400,
           letterSpacing: 3,
+        ),
+      ),
+    );
+  }
+}
+
+class ErrorPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final deviceSize = MediaQuery.of(context).size;
+    return Scaffold(
+      body: Container(
+        height: deviceSize.height,
+        width: deviceSize.width,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Colors.red, Colors.pink],
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'applicationName'.tr,
+              style: TextStyle(
+                fontSize: deviceSize.width / 20.toInt(),
+                color: Colors.white,
+              ),
+            ),
+            Text(
+              'something_went_wrong'.tr,
+              style: TextStyle(
+                fontSize: deviceSize.width / 50.toInt(),
+                color: Colors.white,
+              ),
+            ),
+          ],
         ),
       ),
     );
