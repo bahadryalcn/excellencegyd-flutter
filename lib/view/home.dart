@@ -14,7 +14,7 @@ import 'package:websitegyd/widgets/floating_quick_access_bar.dart';
 import 'package:websitegyd/widgets/responsive.dart';
 
 class HomePage extends StatefulWidget {
-  static const String route = '/home_page';
+  static const String route = '/';
 
   @override
   _HomePageState createState() => _HomePageState();
