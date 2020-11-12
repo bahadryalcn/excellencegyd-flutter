@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:get/get.dart';
 import 'package:websitegyd/services/route_configuration.dart';
-import 'package:websitegyd/view/contact_us.dart';
 // import 'package:websitegyd/services/route_configuration.dart';
 // import 'package:websitegyd/view/contact_us.dart';
 import 'package:websitegyd/view/home.dart';
@@ -32,10 +31,6 @@ class _ExcellenceGYDState extends State<ExcellenceGYD> {
   GetMaterialApp buildGetMaterialApp(ThemeData data) {
     return GetMaterialApp(
       initialRoute: HomePage.route,
-      // routes: {
-      //   HomePage.route: (context) => HomePage(),
-      //   ContactUs.route: (context) => ContactUs(),
-      // },
       onGenerateRoute: RouteConfiguration.onGenerateRoute,
       title: "Excellence GYD",
       translations: LocalizationService(),
@@ -43,7 +38,6 @@ class _ExcellenceGYDState extends State<ExcellenceGYD> {
       locale: LocalizationService.locale,
       theme: data,
       debugShowCheckedModeBanner: false,
-      // home: buildFutureBuilderHome(),
     );
   }
 

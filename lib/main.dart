@@ -6,3 +6,4 @@ void main() {
   configureApp();
   runApp(ExcellenceGYD());
 }
+// flutter pub global run peanut:peanut
