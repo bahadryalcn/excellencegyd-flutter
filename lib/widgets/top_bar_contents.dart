@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:websitegyd/constants/strings.dart';
-import 'package:websitegyd/models/languages_item.dart';
+import 'package:websitegyd/widgets/languages_item.dart';
 import 'package:websitegyd/services/localization_services.dart';
-import 'package:websitegyd/services/shared_preferences_helper.dart';
-import 'package:websitegyd/view/home.dart';
 
 // ignore: must_be_immutable
 class TopBarContents extends StatefulWidget {
@@ -31,11 +29,7 @@ class _TopBarContentsState extends State<TopBarContents> {
     false
   ];
   var _screenSize;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
@@ -44,7 +38,7 @@ class _TopBarContentsState extends State<TopBarContents> {
       child: Container(
         color: Theme.of(context).bottomAppBarColor,
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(UniversalStrings.desktopPadding),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -62,21 +56,17 @@ class _TopBarContentsState extends State<TopBarContents> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(width: _screenSize.width / 8),
+                    buildSizedBoxDivider(8),
                     buildInkWell(context, 'home_page'.tr, 0),
-                    SizedBox(width: _screenSize.width / 20),
+                    buildSizedBoxDivider(20),
                     buildInkWell(context, 'contact_us'.tr, 1),
                   ],
                 ),
               ),
               buildChangeThemeIcon(context),
-              SizedBox(
-                width: _screenSize.width / 50,
-              ),
+              buildSizedBoxDivider(50),
               buildInkWell(context, 'sign_in_button'.tr, 3),
-              SizedBox(
-                width: _screenSize.width / 50,
-              ),
+              buildSizedBoxDivider(50),
               buildLanguageDropDownMenu(context),
             ],
           ),
@@ -85,18 +75,20 @@ class _TopBarContentsState extends State<TopBarContents> {
     );
   }
 
+  SizedBox buildSizedBoxDivider(int value) {
+    return SizedBox(
+      width: _screenSize.width / value,
+    );
+  }
+
   DropdownButton<LanguagesItem> buildLanguageDropDownMenu(
       BuildContext context) {
-    // print('Dropdown Locale: ' + Get.locale.toString());
-    // print('Dropdown  LocalizationService: ' +
-    //     LocalizationService.applicationLanguage.toString());
-
-    // var currentLang = getAppLanguage();
-    // print(currentLang);
     var initialLanguage =
         LocalizationService().getLanguageFromLocale(Get.locale.toString());
 
     return DropdownButton(
+      icon: Icon(Icons.arrow_downward),
+      iconEnabledColor: Theme.of(context).accentColor,
       hint: initialLanguage.buildLanguageItem(context),
       dropdownColor: Theme.of(context).hoverColor,
       value: dropdownValue,
@@ -119,7 +111,6 @@ class _TopBarContentsState extends State<TopBarContents> {
     );
   }
 
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   void _bids() async {
     await Future<void>.delayed(Duration(milliseconds: 500));
 
@@ -148,22 +139,10 @@ class _TopBarContentsState extends State<TopBarContents> {
         .then((bool success) {});
   }
 
-  Future<String> getAppLanguage() async {
-    final SharedPreferences prefs = await _prefs;
-    // if (prefs.getString('applicationLang').isNotEmpty) {
-    // print('Burada ' + prefs.getString('applicationLang'));
-    // }
-    // String appLang = (prefs.getString('applicationLang'));
-    // return appLang;
-    if (prefs.getString('applicationLanguage').isEmpty) {
-      print('aaa');
-    }
-  }
-
   Dialog dialogWidget() {
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(UniversalStrings.padding),
+        borderRadius: BorderRadius.circular(UniversalStrings.desktopPadding),
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
@@ -183,7 +162,9 @@ class _TopBarContentsState extends State<TopBarContents> {
               size: 60,
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 16, bottom: 16),
+              padding: const EdgeInsets.only(
+                  top: UniversalStrings.desktopPadding,
+                  bottom: UniversalStrings.desktopPadding),
               child: Text(
                 'language_changed'.tr,
                 style: TextStyle(color: Theme.of(context).canvasColor),
@@ -225,11 +206,11 @@ class _TopBarContentsState extends State<TopBarContents> {
   InkWell buildInkWell(BuildContext context, String name, int index) {
     return InkWell(
       onHover: (value) {
-        // setState(() {
         value ? _isHovering[index] = true : _isHovering[index] = false;
-        // });
       },
-      onTap: () {},
+      onTap: () {
+        //
+      },
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

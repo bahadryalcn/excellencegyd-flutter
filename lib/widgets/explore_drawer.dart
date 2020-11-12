@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:websitegyd/constants/strings.dart';
-import 'package:websitegyd/models/languages_item.dart';
+import 'package:websitegyd/widgets/languages_item.dart';
 import 'package:get/get.dart';
 import 'package:websitegyd/services/localization_services.dart';
 
@@ -17,6 +18,7 @@ class ExploreDrawer extends StatefulWidget {
 
 class _ExploreDrawerState extends State<ExploreDrawer> {
   static LanguageItemWidget dropdownValue;
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   var _screenSize;
 
   int dialogActive = 0;
@@ -27,14 +29,14 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
       child: Container(
         color: Theme.of(context).bottomAppBarColor,
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(UniversalStrings.mobilePadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               buildLanguageDropDownMenu(context),
-              SizedBox(height: 20),
-              SizedBox(height: 20),
+              buildSizedBoxDivider(20),
+              buildSizedBoxDivider(20),
               buildInkWell(context, 'home_page'.tr),
               buildMobileDrawerDiveder(context),
               buildInkWell(context, 'contact_us'.tr),
@@ -46,12 +48,16 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
     );
   }
 
+  SizedBox buildSizedBoxDivider(double value) => SizedBox(height: value);
+
   DropdownButton<LanguagesItem> buildLanguageDropDownMenu(
       BuildContext context) {
     var initialLanguage =
         LocalizationService().getLanguageFromLocale(Get.locale.toString());
 
     return DropdownButton(
+      icon: Icon(Icons.arrow_downward),
+      iconEnabledColor: Theme.of(context).accentColor,
       hint: initialLanguage.buildLanguageItem(context),
       dropdownColor: Theme.of(context).hoverColor,
       value: dropdownValue,
@@ -74,43 +80,42 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
     );
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
-
   void _bids() async {
     await Future<void>.delayed(Duration(milliseconds: 500));
-
     if (LocalizationService().changeLocale(dropdownValue.name)) {
       LocalizationService().changeLocale(dropdownValue.name);
-      setState(() {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return dialogWidget();
-          },
-        );
-        Timer(Duration(milliseconds: 1200), () {
-          if (Navigator.canPop(context)) {
-            Navigator.of(context).pop();
-          }
-        });
+      setInitialPreferences();
+      showDialog(
+        context: context,
+        builder: (context) {
+          return dialogWidget();
+        },
+      );
+      Timer(Duration(milliseconds: 1200), () {
+        if (Navigator.canPop(context)) {
+          Navigator.of(context).pop();
+        }
       });
     }
+  }
+
+  Future<void> setInitialPreferences() async {
+    final SharedPreferences prefs = await _prefs;
+    prefs
+        .setString("applicationLang", Get.locale.toString())
+        .then((bool success) {});
   }
 
   Dialog dialogWidget() {
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(UniversalStrings.padding),
+        borderRadius: BorderRadius.circular(UniversalStrings.mobilePadding),
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
       child: Container(
         alignment: Alignment.center,
-        height: _screenSize.height * 0.2,
+        height: _screenSize.height * 0.4,
         width: _screenSize.width * 0.3,
         decoration: BoxDecoration(
           color: Theme.of(context).accentColor,
@@ -124,7 +129,9 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
               size: 60,
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 16, bottom: 16),
+              padding: const EdgeInsets.only(
+                  top: UniversalStrings.mobilePadding,
+                  bottom: UniversalStrings.mobilePadding),
               child: Text(
                 'language_changed'.tr,
                 style: TextStyle(color: Theme.of(context).canvasColor),
@@ -176,8 +183,8 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
         ),
         child: Padding(
           padding: EdgeInsets.only(
-            top: 15.0,
-            bottom: 15.0,
+            top: UniversalStrings.mobilePadding,
+            bottom: UniversalStrings.mobilePadding,
           ),
           child: Text(
             text,
@@ -195,7 +202,9 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
 
   Padding buildMobileDrawerDiveder(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+      padding: const EdgeInsets.only(
+          top: UniversalStrings.mobilePadding2,
+          bottom: UniversalStrings.mobilePadding2),
       child: Divider(
         color: Theme.of(context).brightness == Brightness.dark
             ? Colors.white
@@ -218,122 +227,3 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
     );
   }
 }
-
-// DropdownButton<LanguagesItem> buildLanguageDropDownMenu(
-//     BuildContext context) {
-//   var initialLanguage =
-//       LocalizationService().getLanguageFromLocale(Get.locale.toString());
-//   return DropdownButton(
-//     hint: initialLanguage.buildLanguageItem(context),
-//     dropdownColor: Theme.of(context).hoverColor,
-//     value: dropdownValue,
-//     items: UniversalStrings.languageItems
-//         .map<DropdownMenuItem<LanguagesItem>>((value) {
-//       return DropdownMenuItem<LanguagesItem>(
-//         value: value,
-//         child: value.buildLanguageItem(context),
-//       );
-//     }).toList(),
-//     onTap: () {},
-//     onChanged: (newvalue) {
-//       try {
-//         dropdownValue = newvalue;
-//         var myWidget = StreamBuilder(
-//           stream: _bids,
-//           builder: (
-//             BuildContext context,
-//             AsyncSnapshot<int> snapshot,
-//           ) {
-//             List<Widget> children2;
-//             if (snapshot.hasError) {
-//               children2 = <Widget>[
-//                 Icon(
-//                   Icons.error_outline,
-//                   color: Colors.red,
-//                   size: 60,
-//                 ),
-//                 Padding(
-//                   padding: const EdgeInsets.only(top: 16),
-//                   child: Text('Error: ${snapshot.error}'),
-//                 )
-//               ];
-//             } else {
-//               switch (snapshot.connectionState) {
-//                 case ConnectionState.none:
-//                   children2 = <Widget>[
-//                     Icon(
-//                       Icons.info,
-//                       color: Colors.blue,
-//                       size: 60,
-//                     ),
-//                     const Padding(
-//                       padding: EdgeInsets.only(top: 16),
-//                       child: Text('Select a lot'),
-//                     )
-//                   ];
-//                   break;
-//                 case ConnectionState.waiting:
-//                   children2 = <Widget>[
-//                     SizedBox(
-//                       child: const CircularProgressIndicator(),
-//                       width: 60,
-//                       height: 60,
-//                     ),
-//                   ];
-//                   break;
-//                 case ConnectionState.active:
-//                   children2 = [
-//                     SizedBox(
-//                       child: const CircularProgressIndicator(),
-//                       width: 60,
-//                       height: 60,
-//                     ),
-//                   ];
-//                   break;
-//                 case ConnectionState.done:
-//                   children2 = <Widget>[
-//                     CustomDialogBox(
-//                       child: Column(
-//                         children: [
-//                           Icon(
-//                             snapshot.data == 1
-//                                 ? Icons.check_circle_outline
-//                                 : Icons.error,
-//                             color: snapshot.data == 1
-//                                 ? Colors.green
-//                                 : Colors.red,
-//                             size: 60,
-//                           ),
-//                           Padding(
-//                             padding: const EdgeInsets.only(top: 16),
-//                             child: snapshot.data == 1
-//                                 ? Text('language_changed'.tr)
-//                                 : Text('error_occured_changing_language'.tr),
-//                           )
-//                         ],
-//                       ),
-//                     ),
-//                   ];
-//                   break;
-//               }
-//             }
-//             return Column(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               crossAxisAlignment: CrossAxisAlignment.center,
-//               children: children2,
-//             );
-//           },
-//         );
-//         // });
-//         showDialog(
-//           context: context,
-//           builder: (context) => myWidget,
-//         );
-
-//         // print(newvalue.aa());
-//       } catch (ee) {
-//         print(ee.toString());
-//       }
-//     },
-//   );
-// }

@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:websitegyd/constants/strings.dart';
 import 'package:websitegyd/widgets/responsive.dart';
 
 class DestinationCarousel extends StatefulWidget {
@@ -8,35 +9,11 @@ class DestinationCarousel extends StatefulWidget {
 }
 
 class _DestinationCarouselState extends State<DestinationCarousel> {
-  final String imagePath = 'assets/images/';
-
   final CarouselController _controller = CarouselController();
-
-  List _isHovering = [false, false, false, false, false, false, false];
-  List _isSelected = [true, false, false, false, false, false, false];
-
   int _current = 0;
 
-  final List<String> images = [
-    'assets/images/asia.jpg',
-    'assets/images/africa.jpg',
-    'assets/images/europe.jpg',
-    'assets/images/south_america.jpg',
-    'assets/images/australia.jpg',
-    'assets/images/antarctica.jpg',
-  ];
-
-  final List<String> places = [
-    'ASIA',
-    'AFRICA',
-    'EUROPE',
-    'SOUTH AMERICA',
-    'AUSTRALIA',
-    'ANTARCTICA',
-  ];
-
   List<Widget> generateImageTiles(screenSize) {
-    return images
+    return UniversalStrings.imagesCarousel
         .map(
           (element) => ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
@@ -70,9 +47,9 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
                   _current = index;
                   for (int i = 0; i < imageSliders.length; i++) {
                     if (i == index) {
-                      _isSelected[i] = true;
+                      UniversalStrings.isSelectedCarousel[i] = true;
                     } else {
-                      _isSelected[i] = false;
+                      UniversalStrings.isSelectedCarousel[i] = false;
                     }
                   }
                 });
@@ -83,7 +60,7 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
           aspectRatio: 18 / 8,
           child: Center(
             child: Text(
-              places[_current],
+              UniversalStrings.placesCarousel[_current],
               style: TextStyle(
                 letterSpacing: 8,
                 fontFamily: 'Electrolize',
@@ -116,7 +93,9 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              for (int i = 0; i < places.length; i++)
+                              for (int i = 0;
+                                  i < UniversalStrings.placesCarousel.length;
+                                  i++)
                                 Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -126,8 +105,11 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
                                       onHover: (value) {
                                         setState(() {
                                           value
-                                              ? _isHovering[i] = true
-                                              : _isHovering[i] = false;
+                                              ? UniversalStrings
+                                                  .isHoveringCarousel[i] = true
+                                              : UniversalStrings
+                                                      .isHoveringCarousel[i] =
+                                                  false;
                                         });
                                       },
                                       onTap: () {
@@ -138,9 +120,10 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
                                             top: screenSize.height / 80,
                                             bottom: screenSize.height / 90),
                                         child: Text(
-                                          places[i],
+                                          UniversalStrings.placesCarousel[i],
                                           style: TextStyle(
-                                            color: _isHovering[i]
+                                            color: UniversalStrings
+                                                    .isHoveringCarousel[i]
                                                 ? Theme.of(context)
                                                     .primaryTextTheme
                                                     .button
@@ -157,10 +140,14 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
                                       maintainSize: true,
                                       maintainAnimation: true,
                                       maintainState: true,
-                                      visible: _isSelected[i],
+                                      visible: UniversalStrings
+                                          .isSelectedCarousel[i],
                                       child: AnimatedOpacity(
                                         duration: Duration(milliseconds: 400),
-                                        opacity: _isSelected[i] ? 1 : 0,
+                                        opacity: UniversalStrings
+                                                .isSelectedCarousel[i]
+                                            ? 1
+                                            : 0,
                                         child: Container(
                                           height: 5,
                                           decoration: BoxDecoration(

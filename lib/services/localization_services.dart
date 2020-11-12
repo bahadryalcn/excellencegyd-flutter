@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shared_preferences_web/shared_preferences_web.dart';
 import 'package:websitegyd/localization/ar_arabic.dart';
 import 'package:websitegyd/localization/cn_china.dart';
 import 'package:websitegyd/localization/de_german.dart';
@@ -10,13 +8,11 @@ import 'package:websitegyd/localization/fr_french.dart';
 import 'package:websitegyd/localization/it_italian.dart';
 import 'package:websitegyd/localization/ja_japanese.dart';
 import 'package:websitegyd/localization/tr_turkish.dart';
-import 'package:websitegyd/models/languages_item.dart';
+import 'package:websitegyd/widgets/languages_item.dart';
 
 class LocalizationService extends Translations {
-  // Default locale
   static var locale = Locale('en', 'US');
   static Future<String> applicationLang;
-  // fallbackLocale saves the day when the locale gets in trouble
   static final fallbackLocale = Locale('en', 'US');
 
   // Supported languages
@@ -63,13 +59,11 @@ class LocalizationService extends Translations {
   bool changeLocale(String lang) {
     try {
       var newlocale = _getLocaleFromLanguage(lang);
-      // applicationLanguage = locale.toString();
       locale = newlocale;
       Get.updateLocale(newlocale);
-      // sleep1();
       return true;
     } catch (ee) {
-      print('Error: Language can not added yet');
+      print('Error: Language did not added yet');
       return false;
     }
   }
@@ -77,12 +71,6 @@ class LocalizationService extends Translations {
   Locale _getLocaleFromLanguage(String lang) {
     for (int i = 0; i < langs.length; i++) {
       if (lang == langs[i]) {
-        // print('lang: ' +
-        //     lang +
-        //     ' langs ' +
-        //     langs[i] +
-        //     ' Locale:' +
-        //     locales[i].toString());
         return locales[i];
       }
     }
@@ -92,12 +80,6 @@ class LocalizationService extends Translations {
   LanguageItemWidget getLanguageFromLocale(String code) {
     for (int i = 0; i < langs.length; i++) {
       if (code == locales[i].toString()) {
-        // print('code: ' +
-        //     code +
-        //     ' langs: ' +
-        //     langs[i] +
-        //     ' Locale:' +
-        //     locales[i].toString());
         final localLanguageItem = LanguageItemWidget(langs[i].toString(),
             'assets/images/flags/${Get.locale.languageCode}.png');
         return localLanguageItem;
@@ -109,35 +91,10 @@ class LocalizationService extends Translations {
   Locale getLocalLanguage(String localLang) {
     for (int i = 0; i < langs.length; i++) {
       if (localLang == locales[i].toString()) {
-        print('code: ' +
-            localLang +
-            ' langs: ' +
-            langs[i] +
-            ' Locale:' +
-            locales[i].toString());
         Get.updateLocale(locales[i]);
         return locales[i];
       }
     }
     return locales[2];
-  }
-
-  bool setLocalLanguage(String localLang) {
-    for (int i = 0; i < langs.length; i++) {
-      if (localLang == locales[i].toString()) {
-        print('code: ' +
-            localLang +
-            ' langs: ' +
-            langs[i] +
-            ' Locale:' +
-            locales[i].toString());
-        Get.updateLocale(locales[i]);
-        // return langs[i];
-        print('ok');
-        return true;
-      }
-    }
-    return false;
-    // return langs[2];
   }
 }

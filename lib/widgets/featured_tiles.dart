@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:websitegyd/constants/strings.dart';
 import 'package:websitegyd/widgets/responsive.dart';
 
 class FeaturedTiles extends StatelessWidget {
   FeaturedTiles({
     Key key,
-    @required this.screenSize,
-    @required this.assets,
-    @required this.title,
+    // @required this.screenSize,
+    // @required this.UniversalStrings.assetsFeaturesTiles,
+    // @required this.UniversalStrings.titleFeaturesTiles,
   }) : super(key: key);
 
-  final Size screenSize;
+  // final List<String> UniversalStrings.assetsFeaturesTiles;
 
-  final List<String> assets;
-
-  final List<String> title;
+  // final List<String> UniversalStrings.titleFeaturesTiles;
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
     return ResponsiveWidget.isSmallScreen(context)
-        ? buildPaddingMobile(context)
-        : buildPaddingDesktop(context);
+        ? buildPaddingMobile(context, screenSize)
+        : buildPaddingDesktop(context, screenSize);
   }
 
-  Padding buildPaddingMobile(BuildContext context) {
+  Padding buildPaddingMobile(BuildContext context, Size screenSize) {
     return Padding(
       padding: EdgeInsets.only(top: screenSize.height / 50),
       child: SingleChildScrollView(
@@ -31,7 +31,9 @@ class FeaturedTiles extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(width: screenSize.width / 15),
-            ...Iterable<int>.generate(assets.length).map(
+            ...Iterable<int>.generate(
+                    UniversalStrings.assetsFeaturesTiles.length)
+                .map(
               (int pageIndex) => Row(
                 children: [
                   Column(
@@ -43,7 +45,7 @@ class FeaturedTiles extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5.0),
                           child: Image.asset(
-                            assets[pageIndex],
+                            UniversalStrings.assetsFeaturesTiles[pageIndex],
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -53,7 +55,7 @@ class FeaturedTiles extends StatelessWidget {
                           top: screenSize.height / 70,
                         ),
                         child: Text(
-                          title[pageIndex],
+                          UniversalStrings.titleFeaturesTiles[pageIndex],
                           style: TextStyle(
                             fontSize: 16,
                             fontFamily: 'Montserrat',
@@ -77,7 +79,7 @@ class FeaturedTiles extends StatelessWidget {
     );
   }
 
-  Padding buildPaddingDesktop(BuildContext context) {
+  Padding buildPaddingDesktop(BuildContext context, Size screenSize) {
     return Padding(
       padding: EdgeInsets.only(
         top: screenSize.height * 0.06,
@@ -87,7 +89,8 @@ class FeaturedTiles extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ...Iterable<int>.generate(assets.length).map(
+          ...Iterable<int>.generate(UniversalStrings.assetsFeaturesTiles.length)
+              .map(
             (int pageIndex) => Column(
               children: [
                 SizedBox(
@@ -96,7 +99,7 @@ class FeaturedTiles extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5.0),
                     child: Image.asset(
-                      assets[pageIndex],
+                      UniversalStrings.assetsFeaturesTiles[pageIndex],
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -106,9 +109,9 @@ class FeaturedTiles extends StatelessWidget {
                     top: screenSize.height / 70,
                   ),
                   child: Text(
-                    title[pageIndex],
+                    UniversalStrings.titleFeaturesTiles[pageIndex],
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w500,
                       color: Theme.of(context).primaryTextTheme.subtitle1.color,

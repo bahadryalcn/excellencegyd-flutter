@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:websitegyd/constants/strings.dart';
 import 'package:websitegyd/widgets/responsive.dart';
 
 class FeaturedHeading extends StatelessWidget {
   const FeaturedHeading({
     Key key,
-    @required this.screenSize,
-    @required this.title,
-    @required this.subTitle,
+    // @required this.screenSize,
+    // @required this.UniversalStrings.titleFeaturedHeading,
+    // @required this.UniversalStrings.subtitleFeaturedHeading,
   }) : super(key: key);
-  final String title;
-  final String subTitle;
-  final Size screenSize;
+  // final String UniversalStrings.titleFeaturedHeading;
+  // final String UniversalStrings.subtitleFeaturedHeading;
+  // final Size screenSize;
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
     return Padding(
       padding: EdgeInsets.only(
         top: screenSize.height * 0.06,
@@ -33,7 +35,7 @@ class FeaturedHeading extends StatelessWidget {
       children: [
         Row(),
         Text(
-          title,
+          UniversalStrings.titleFeaturedHeading,
           style: TextStyle(
             fontSize: 24,
             fontFamily: 'Montserrat',
@@ -43,7 +45,7 @@ class FeaturedHeading extends StatelessWidget {
         ),
         SizedBox(height: 5),
         Text(
-          subTitle,
+          UniversalStrings.subtitleFeaturedHeading,
           textAlign: TextAlign.end,
           style: Theme.of(context).primaryTextTheme.subtitle1,
         ),
@@ -58,7 +60,7 @@ class FeaturedHeading extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          'Featured',
+          UniversalStrings.titleFeaturedHeading,
           style: TextStyle(
             fontSize: 40,
             fontFamily: 'Montserrat',
@@ -67,9 +69,9 @@ class FeaturedHeading extends StatelessWidget {
         ),
         Expanded(
           child: Text(
-            'Unique wildlife tours & destinations',
+            UniversalStrings.subtitleFeaturedHeading,
             textAlign: TextAlign.end,
-            style: Theme.of(context).primaryTextTheme.subtitle1,
+            style: Theme.of(context).primaryTextTheme.subtitle2,
           ),
         ),
       ],

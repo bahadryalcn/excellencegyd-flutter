@@ -1,9 +1,11 @@
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:websitegyd/services/localization_services.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:get/get.dart';
-
+import 'package:websitegyd/services/route_configuration.dart';
+import 'package:websitegyd/view/contact_us.dart';
+// import 'package:websitegyd/services/route_configuration.dart';
+// import 'package:websitegyd/view/contact_us.dart';
 import 'package:websitegyd/view/home.dart';
 
 class ExcellenceGYD extends StatefulWidget {
@@ -14,42 +16,6 @@ class ExcellenceGYD extends StatefulWidget {
 /// flutter pub global run peanut:peanut
 
 class _ExcellenceGYDState extends State<ExcellenceGYD> {
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  // Future<int> _counter;
-  Future<String> applicationLang;
-  @override
-  void initState() {
-    super.initState();
-    aaawdwa();
-    // aa();
-  }
-
-  Future<void> aaawdwa() async {
-    final SharedPreferences prefs = await _prefs;
-    Locale aawda = LocalizationService()
-        .getLocalLanguage(prefs.getString('applicationLang'));
-    LocalizationService.locale = aawda;
-
-    print('Deneme: ' + aawda.toString());
-  }
-
-  Future<void> aa() async {
-    final SharedPreferences prefs = await _prefs;
-    prefs
-        .setString("applicationLang", Get.locale.toString())
-        .then((bool success) {
-      print(success);
-      return applicationLang;
-    });
-
-    print('Thmee' + prefs.getString('applicationLang').toString());
-  }
-
-  Future<void> bb() async {
-    final SharedPreferences prefs = await _prefs;
-    LocalizationService().setLocalLanguage(prefs.getString('applicationLang'));
-  }
-
   @override
   Widget build(BuildContext context) {
     return DynamicTheme(
@@ -59,32 +25,25 @@ class _ExcellenceGYDState extends State<ExcellenceGYD> {
             ? buildLightThemeData(context, brightness)
             : buildDarkThemeData(context, brightness);
       },
-      themedWidgetBuilder: (context, data) => GetMaterialApp(
-        title: "Excellence GYD",
-        translations: LocalizationService(),
-        fallbackLocale: LocalizationService.fallbackLocale,
-        locale: LocalizationService.locale,
-        theme: data,
-        // enableLog: true,
-        home: FutureBuilder(
-          future: applicationLang,
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return Container(
-                    alignment: Alignment.center,
-                    child: const CircularProgressIndicator());
-                break;
-              default:
-                if (snapshot.hasError) {
-                  return ErrorPage();
-                } else {
-                  return HomePage();
-                }
-            }
-          },
-        ),
-      ),
+      themedWidgetBuilder: (context, data) => buildGetMaterialApp(data),
+    );
+  }
+
+  GetMaterialApp buildGetMaterialApp(ThemeData data) {
+    return GetMaterialApp(
+      initialRoute: HomePage.route,
+      // routes: {
+      //   HomePage.route: (context) => HomePage(),
+      //   ContactUs.route: (context) => ContactUs(),
+      // },
+      onGenerateRoute: RouteConfiguration.onGenerateRoute,
+      title: "Excellence GYD",
+      translations: LocalizationService(),
+      fallbackLocale: LocalizationService.fallbackLocale,
+      locale: LocalizationService.locale,
+      theme: data,
+      debugShowCheckedModeBanner: false,
+      // home: buildFutureBuilderHome(),
     );
   }
 
@@ -133,10 +92,12 @@ class _ExcellenceGYDState extends State<ExcellenceGYD> {
           decorationColor: Colors.red,
         ),
         subtitle2: TextStyle(
-          color: Colors.red,
+          color: Colors.black,
+          fontSize: 20,
         ),
         subtitle1: TextStyle(
           color: Colors.black,
+          fontSize: 16,
         ),
         headline1: TextStyle(color: Colors.red),
       ),
