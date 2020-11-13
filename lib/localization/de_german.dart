@@ -5,6 +5,7 @@ const Map<String, String> deDE = {
   'okey': "Tamam",
   "home_page": "Homa Seite",
   'contact_us': "Kontaktiere uns",
+  'about_us': 'About Us',
   'sign_in_button': "Einloggen",
   'language_changed': 'Successfully Language Changed',
   'error_occured_changing_language': 'Error occured while changing language',

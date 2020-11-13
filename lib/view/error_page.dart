@@ -9,7 +9,7 @@ class ErrorPage extends StatelessWidget {
       body: Container(
         height: deviceSize.height,
         width: deviceSize.width,
-        alignment: Alignment.center,
+        alignment: Alignment.center, 
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,

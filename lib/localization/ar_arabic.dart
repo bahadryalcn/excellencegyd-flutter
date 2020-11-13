@@ -5,6 +5,7 @@ const Map<String, String> arAR = {
   // 'mylang': "لغة",
   'home_page': "صفحة حوما",
   'contact_us': "اتصل بنا",
+  'about_us': 'About Us',
   'sign_in_button': "تسجيل الدخول",
   'language_changed': 'Successfully Language Changed',
   'error_occured_changing_language': 'Error occured while changing language',

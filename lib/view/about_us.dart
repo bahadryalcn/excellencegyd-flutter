@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:websitegyd/constants/strings.dart';
 import 'package:websitegyd/widgets/nav_bar/desktop_navigation_bar.dart';
 import 'package:websitegyd/widgets/nav_bar/mobile_navigation_bar.dart';
 import 'package:websitegyd/widgets/responsive.dart';
 
-class ContactUs extends StatefulWidget {
+class AboutUs extends StatefulWidget {
   // static const String route = '/contact';
   // static const String baseRoute = '/article';
   // static String Function(String slug) routeFromSlug =
   //     (String slug) => route + '/$slug';
   @override
-  _ContactUsState createState() => _ContactUsState();
+  _AboutUsState createState() => _AboutUsState();
 }
 
-class _ContactUsState extends State<ContactUs> {
+class _AboutUsState extends State<AboutUs> {
   ScrollController _scrollController;
   @override
   void initState() {
@@ -41,7 +40,13 @@ class _ContactUsState extends State<ContactUs> {
                     : DesktopNavigationBar(),
                 Stack(children: [
                   Container(
-                    child: Text('Geldi'),
+                    child: Center(
+                      child: Text(
+                        'About',
+                        style: TextStyle(
+                            color: Theme.of(context).accentColor, fontSize: 50),
+                      ),
+                    ),
                   )
                 ])
               ]);

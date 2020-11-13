@@ -5,6 +5,7 @@ const Map<String, String> cnCN = {
   'okey': "Tamam",
   "home_page": "霍马页面",
   'contact_us': "联系我们",
+  'about_us': 'About Us',
   'sign_in_button': "登入",
   'language_changed': 'Successfully Language Changed',
   'error_occured_changing_language': 'Error occured while changing language',

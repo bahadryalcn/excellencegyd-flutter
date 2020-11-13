@@ -1,11 +1,13 @@
+import 'package:websitegyd/router/route_names.dart';
+import 'package:websitegyd/router/router.dart';
 import 'package:websitegyd/services/localization_services.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:get/get.dart';
-import 'package:websitegyd/services/route_configuration.dart';
-// import 'package:websitegyd/services/route_configuration.dart';
-// import 'package:websitegyd/view/contact_us.dart';
-import 'package:websitegyd/view/home.dart';
+import 'package:websitegyd/services/navigation_service.dart';
+import 'package:websitegyd/view/layout_template.dart';
+
+import 'locator.dart';
 
 class ExcellenceGYD extends StatefulWidget {
   @override
@@ -18,32 +20,41 @@ class _ExcellenceGYDState extends State<ExcellenceGYD> {
   @override
   Widget build(BuildContext context) {
     return DynamicTheme(
-      defaultBrightness: Brightness.light,
-      data: (brightness) {
-        return brightness == Brightness.light
-            ? buildLightThemeData(context, brightness)
-            : buildDarkThemeData(context, brightness);
-      },
-      themedWidgetBuilder: (context, data) => buildGetMaterialApp(data),
-    );
+        defaultBrightness: Brightness.light,
+        data: (brightness) {
+          return brightness == Brightness.light
+              ? buildLightThemeData(context, brightness)
+              : buildDarkThemeData(context, brightness);
+        },
+        themedWidgetBuilder: (context, data) {
+          return buildGetMaterialApp(data);
+        });
   }
 
   GetMaterialApp buildGetMaterialApp(ThemeData data) {
     return GetMaterialApp(
-      initialRoute: HomePage.route,
-      onGenerateRoute: RouteConfiguration.onGenerateRoute,
+      builder: (context, child) {
+        return LayoutTemplate(
+          child: child,
+        );
+      },
+      theme: data,
+      debugShowCheckedModeBanner: false,
       title: "Excellence GYD",
+      navigatorKey: locator<NavigationService>().navigatorKey,
+      onGenerateRoute: generateRoute,
+      initialRoute: HomePageRoute,
+      home: LayoutTemplate(),
       translations: LocalizationService(),
       fallbackLocale: LocalizationService.fallbackLocale,
       locale: LocalizationService.locale,
-      theme: data,
-      debugShowCheckedModeBanner: false,
     );
   }
 
   ThemeData buildDarkThemeData(BuildContext context, Brightness brightness) {
     return ThemeData(
       primarySwatch: Colors.red,
+      primaryColor: Colors.red,
       accentColor: Colors.white,
       backgroundColor: Colors.black,
       cardColor: Colors.red,
@@ -74,6 +85,7 @@ class _ExcellenceGYDState extends State<ExcellenceGYD> {
   ThemeData buildLightThemeData(BuildContext context, Brightness brightness) {
     return ThemeData(
       primarySwatch: Colors.red,
+      primaryColor: Colors.red,
       accentColor: Colors.black,
       canvasColor: Colors.white,
       backgroundColor: Colors.white,

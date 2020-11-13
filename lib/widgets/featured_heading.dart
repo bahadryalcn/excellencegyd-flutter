@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:websitegyd/constants/strings.dart';
 import 'package:websitegyd/widgets/responsive.dart';
 
@@ -60,7 +61,7 @@ class FeaturedHeading extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          UniversalStrings.titleFeaturedHeading,
+          'home_page'.tr,
           style: TextStyle(
             fontSize: 40,
             fontFamily: 'Montserrat',

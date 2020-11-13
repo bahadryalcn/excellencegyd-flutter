@@ -5,6 +5,7 @@ const Map<String, String> trTR = {
   'okey': "Tamam",
   'home_page': 'Ana Sayfa',
   'contact_us': 'Bize Ulaşın',
+  'about_us': 'About Us',
   'sign_in_button': 'Giriş Yap',
   'language_changed': 'Dil Başarıyla değiştirildi.',
   'error_occured_changing_language': 'Error occured while changing language',

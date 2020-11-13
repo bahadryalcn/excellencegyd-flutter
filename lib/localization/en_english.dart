@@ -5,6 +5,7 @@ const Map<String, String> enUS = {
   'okey': "Tamam",
   'home_page': 'Home Page',
   'contact_us': 'Contact Us',
+  'about_us': 'About Us',
   'sign_in_button': 'Sign In',
   'language_changed': 'Successfully Language Changed',
   'error_occured_changing_language': 'Error occured while changing language',
