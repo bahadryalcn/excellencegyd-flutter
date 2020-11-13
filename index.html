@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base href="https://bahadryalcn.github.io/excellencegyd/">
+    <base href="https://bahadryalcn.github.io/excellencegyd">
     <meta charset="UTF-8">
     <title>Excellence GYD</title>
   </head>
   <body id="app-container">
     <script src="main.dart.js" type="application/javascript"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function() {
+          navigator.serviceWorker.register("/flutter_service_worker.js");
+        });
+      }
+</script>
   </body>
 </html>
