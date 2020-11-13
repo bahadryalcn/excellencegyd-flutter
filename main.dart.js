@@ -10511,7 +10511,7 @@ this.b=b},
 aiS:function(a){var s=null,r=a.a,q=P.a3X(r,0,s)
 P.dw("queryParameters: "+H.b(q.gwz())+" path: "+q.gq_(q))
 q.gwz()
-switch(q.gq_(q)){case"":return Z.Yq(new Y.mB(s),r)
+switch(q.gq_(q)){case"/":return Z.Yq(new Y.mB(s),r)
 case"/about":return Z.Yq(new L.pl(s),r)
 case"/contact":return Z.Yq(new S.q_(s),r)
 default:return Z.Yq(new Y.mB(s),r)}},
@@ -52970,7 +52970,7 @@ a9:function(){return new F.EX(C.l)}}
 F.EX.prototype={
 B:function(a,b){return new V.qm(new F.Yo(this),new F.Yp(this,b),C.F,null)},
 Tf:function(a){var s=$.xl().$1$0(t.mY).a,r=$.aaj()
-return new Q.mz(s,new V.jk(null,null),"",Z.ajk(),new F.Yn(),"Excellence GYD",a,new T.kP(),$.aak(),r,!1,null)}}
+return new Q.mz(s,new V.jk(null,null),"/",Z.ajk(),new F.Yn(),"Excellence GYD",a,new T.kP(),$.aak(),r,!1,null)}}
 F.Yp.prototype={
 $1:function(a){var s,r,q,p,o=null
 if(a===C.F){s=P.b1(C.H.aH(178.5),244,67,54)
@@ -53273,12 +53273,12 @@ $ijj:1,
 gai:function(a){return this.a}}
 B.mi.prototype={
 B:function(a,b){var s=null,r=K.Q(b,!1).Q,q=t.t
-return M.aY(s,new T.bE(new V.av(20,20,20,20),T.cR(H.c([L.bw(X.ej("applicationName"),A.b5(s,s,K.Q(b,!1).x,s,s,s,s,s,"Montserrat",s,s,20,s,C.C,s,s,!0,3,s,s,s,s,s),s),T.a2Y(T.cR(H.c([new K.h_(20,s),new X.fc(X.ej("home_page"),s,"",s),new K.h_(20,s),new X.fc(X.ej("contact_us"),s,"/contact",s),new K.h_(20,s),new X.fc(X.ej("about_us"),s,"/about",s)],q),C.B,C.kf,C.v)),new Z.y0(s),new K.h_(50,s),new X.fc(X.ej("sign_in_button"),s,"",s),new K.h_(50,s),new S.r9(V.lg(),s)],q),C.B,C.E,C.v),s),C.k,r,s,s,s,s,s,s,s,s,s)}}
+return M.aY(s,new T.bE(new V.av(20,20,20,20),T.cR(H.c([L.bw(X.ej("applicationName"),A.b5(s,s,K.Q(b,!1).x,s,s,s,s,s,"Montserrat",s,s,20,s,C.C,s,s,!0,3,s,s,s,s,s),s),T.a2Y(T.cR(H.c([new K.h_(20,s),new X.fc(X.ej("home_page"),s,"/",s),new K.h_(20,s),new X.fc(X.ej("contact_us"),s,"/contact",s),new K.h_(20,s),new X.fc(X.ej("about_us"),s,"/about",s)],q),C.B,C.kf,C.v)),new Z.y0(s),new K.h_(50,s),new X.fc(X.ej("sign_in_button"),s,"/",s),new K.h_(50,s),new S.r9(V.lg(),s)],q),C.B,C.E,C.v),s),C.k,r,s,s,s,s,s,s,s,s,s)}}
 D.rz.prototype={
 a9:function(){return new D.G0(C.l)}}
 D.G0.prototype={
 B:function(a,b){var s=null,r=K.Q(b,!1).Q,q=V.lg(),p=X.ej("home_page"),o=K.Q(b,!1).J.cx===C.z?C.j:C.a3
-return new Z.yI(M.aY(s,new T.bE(C.wu,T.dh(H.c([new S.r9(q,s),new K.h_(20,s),new K.h_(20,s),new X.fc(p,C.wV,"",s),new T.bE(C.wt,new Z.yC(2,o,s),s),new X.fc(X.ej("contact_us"),C.wS,"/contact",s),new X.fc(X.ej("about_us"),C.wN,"/about",s),T.a2Y(new T.es(C.iK,s,s,new X.fc(X.ej("copyright"),C.wT,"/about",s),s))],t.t),C.bm,C.E,C.v),s),C.k,r,s,s,s,s,s,s,s,s,s),s)}}
+return new Z.yI(M.aY(s,new T.bE(C.wu,T.dh(H.c([new S.r9(q,s),new K.h_(20,s),new K.h_(20,s),new X.fc(p,C.wV,"/",s),new T.bE(C.wt,new Z.yC(2,o,s),s),new X.fc(X.ej("contact_us"),C.wS,"/contact",s),new X.fc(X.ej("about_us"),C.wN,"/about",s),T.a2Y(new T.es(C.iK,s,s,new X.fc(X.ej("copyright"),C.wT,"/about",s),s))],t.t),C.bm,C.E,C.v),s),C.k,r,s,s,s,s,s,s,s,s,s),s)}}
 U.rA.prototype={
 B:function(a,b){var s=null,r=K.Q(b,!1).x,q=K.Q(b,!1).Q
 return E.a5o(H.c([B.zv(K.Q(b,!1).x,C.a3,C.a3,L.jd(C.lQ,s,s),new U.Q8(b),s,s,s)],t.t),q,!0,0,new T.d_(r,s,s),L.bw(X.ej("applicationName"),A.b5(s,s,K.Q(b,!1).x,s,s,s,s,s,"Montserrat",s,s,20,s,C.C,s,s,!0,3,s,s,s,s,s),s))}}
