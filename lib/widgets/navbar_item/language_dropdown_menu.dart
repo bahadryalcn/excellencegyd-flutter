@@ -101,7 +101,7 @@ class LanguageDropDownMenu extends StatelessWidget {
             RaisedButton(
               color: Theme.of(context).canvasColor,
               onPressed: () {
-                if (Navigator.canPop(context)) {
+                if (Navigator.of(context).canPop()) {
                   Navigator.of(context).pop();
                 }
               },
