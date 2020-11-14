@@ -11,6 +11,7 @@ import 'package:websitegyd/widgets/navbar_item/nav_bar_sizedbox.dart';
 class DesktopNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // var screenSize = MediaQuery.of(context).size;
     return Container(
       color: Theme.of(context).bottomAppBarColor,
       child: Padding(
@@ -32,16 +33,16 @@ class DesktopNavigationBar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  NavBarSizedBox(20),
+                  NavBarSizedBox(30),
                   NavBarItem('home_page'.tr, null, HomePageRoute),
-                  NavBarSizedBox(20),
+                  NavBarSizedBox(30),
                   NavBarItem('contact_us'.tr, null, ContactPageRoute),
-                  NavBarSizedBox(20),
+                  NavBarSizedBox(50),
                   NavBarItem('about_us'.tr, null, AboutPageRoute),
-                  // NavBarSizedBox(50),
                 ],
               ),
             ),
+            // NavBarSizedBox(screenSize.width / ),
             ChangeThemeButton(),
             NavBarSizedBox(50),
             NavBarItem('sign_in_button'.tr, null, HomePageRoute),

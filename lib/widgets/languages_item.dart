@@ -26,7 +26,7 @@ class LanguageItemWidget implements LanguagesItem {
         ),
         Text(
           name,
-          style: TextStyle(color: Colors.red),
+          style: TextStyle(color: Theme.of(context).accentColor),
         ),
       ],
     );

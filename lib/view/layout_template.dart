@@ -15,15 +15,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
   final GlobalKey scaffoldLayoutTempKey = new GlobalKey();
   @override
   Widget build(BuildContext context) {
-    // var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      // key: scaffoldLayoutTempKey,
-      // backgroundColor: Theme.of(context).backgroundColor,
-      // extendBodyBehindAppBar: true,
-      // // appBar: buildCustomAppBar(screenSize, context),
-      // drawerEnableOpenDragGesture: true,
-      // drawerScrimColor: Theme.of(context).accentColor,
-      // drawer:
       body: widget.child,
     );
   }

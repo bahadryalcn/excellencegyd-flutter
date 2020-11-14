@@ -57,8 +57,8 @@ class _FloatingQuickAccessBarState extends State<FloatingQuickAccessBar> {
     return Column(
       children: [
         ...Iterable<int>.generate(
-                UniversalStrings.itemsFloatingQuickAccess.length)
-            .map(
+          UniversalStrings.itemsFloatingQuickAccess.length,
+        ).map(
           (int pageIndex) => Padding(
             padding: EdgeInsets.only(top: screenSize.height / 80),
             child: Card(

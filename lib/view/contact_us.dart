@@ -1,54 +1,103 @@
 import 'package:flutter/material.dart';
-import 'package:websitegyd/constants/strings.dart';
-import 'package:websitegyd/widgets/nav_bar/desktop_navigation_bar.dart';
-import 'package:websitegyd/widgets/nav_bar/mobile_navigation_bar.dart';
-import 'package:websitegyd/widgets/responsive.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
+import 'package:websitegyd/view/static_page.dart';
 
-class ContactUs extends StatefulWidget {
-  // static const String route = '/contact';
-  // static const String baseRoute = '/article';
-  // static String Function(String slug) routeFromSlug =
-  //     (String slug) => route + '/$slug';
+class ContactUs extends StatelessWidget {
   @override
-  _ContactUsState createState() => _ContactUsState();
+  Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    return StaticPage(
+      stack: Column(
+        children: [
+          // FloatingQuickAccessBar(),
+          Container(
+            child: Column(
+              children: [],
+            ),
+          ),
+        ],
+      ),
+      column: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        // crossAxisAlignment: CrossAxisAlignment.,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            height: screenSize.height * 0.2,
+            width: screenSize.width * 0.3,
+            child: Card(
+              elevation: 10,
+              color: Theme.of(context).canvasColor,
+              child: ContactCardItem(),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(16),
+            height: screenSize.height * 0.3,
+            width: screenSize.width * 0.3,
+            child: Card(
+              elevation: 10,
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(16),
+            height: screenSize.height * 0.3,
+            width: screenSize.width * 0.3,
+            child: Card(
+              elevation: 10,
+            ),
+          ),
+          // DestinationHeading(),
+          // DestinationCarousel(),
+        ],
+      ),
+    );
+  }
 }
 
-class _ContactUsState extends State<ContactUs> {
-  ScrollController _scrollController;
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-  }
+class ContactCardItem extends StatelessWidget {
+  const ContactCardItem({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // var screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Container(
-        child: Scrollbar(
-          controller: _scrollController,
-          thickness: 5,
-          radius: Radius.circular(5),
-          child: ListView.builder(
-            physics: ClampingScrollPhysics(),
-            itemCount: 1,
-            controller: _scrollController,
-            itemBuilder: (context, index) {
-              return Column(children: [
-                ResponsiveWidget.isSmallScreen(context)
-                    ? MobileNavigationBar()
-                    : DesktopNavigationBar(),
-                Stack(children: [
-                  Container(
-                    child: Text('Geldi'),
-                  )
-                ])
-              ]);
-            },
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 40,
         ),
-      ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Icon(
+              Icons.message,
+              size: 30,
+            ),
+            Text(
+              'Whatsapp: +905320629756',
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        RaisedButton(
+          onPressed: () {
+            FlutterOpenWhatsapp.sendSingleMessage("905320629756", "Hello");
+          },
+          color: Colors.red,
+          child: Text(
+            'Send message us by Whatsapp',
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        )
+      ],
     );
   }
 }

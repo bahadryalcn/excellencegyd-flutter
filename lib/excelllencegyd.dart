@@ -57,7 +57,7 @@ class _ExcellenceGYDState extends State<ExcellenceGYD> {
       primaryColor: Colors.red,
       accentColor: Colors.white,
       backgroundColor: Colors.black,
-      cardColor: Colors.red,
+      cardColor: Colors.red.withOpacity(0.9),
       shadowColor: Colors.red[200],
       highlightColor: Colors.red,
       hoverColor: Colors.black54,
@@ -68,9 +68,11 @@ class _ExcellenceGYDState extends State<ExcellenceGYD> {
         ),
         subtitle2: TextStyle(
           color: Colors.white,
+          fontSize: 20,
         ),
         subtitle1: TextStyle(
           color: Colors.white,
+          fontSize: 16,
         ),
         headline1: TextStyle(
           color: Colors.red,
@@ -89,7 +91,8 @@ class _ExcellenceGYDState extends State<ExcellenceGYD> {
       accentColor: Colors.black,
       canvasColor: Colors.white,
       backgroundColor: Colors.white,
-      cardColor: Colors.white,
+      cardColor: Colors.white.withOpacity(0.95),
+      // cardColor: Colors.white.withOpacity(0.9),
       hoverColor: Colors.white70,
       highlightColor: Colors.red.withOpacity(0.7),
       primaryTextTheme: TextTheme(

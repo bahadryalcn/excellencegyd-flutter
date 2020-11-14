@@ -9,7 +9,7 @@ class ErrorPage extends StatelessWidget {
       body: Container(
         height: deviceSize.height,
         width: deviceSize.width,
-        alignment: Alignment.center, 
+        alignment: Alignment.center,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -20,6 +20,13 @@ class ErrorPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(
+              'applicationName'.tr,
+              style: TextStyle(
+                fontSize: deviceSize.width / 20.toInt(),
+                color: Colors.white,
+              ),
+            ),
             Text(
               'applicationName'.tr,
               style: TextStyle(

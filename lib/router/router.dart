@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:websitegyd/router/route_names.dart';
 import 'package:websitegyd/view/about_us.dart';
 import 'package:websitegyd/view/contact_us.dart';
-import 'package:websitegyd/view/home.dart';
+import 'package:websitegyd/view/error_page.dart';
 import 'package:websitegyd/extensions/strings_extensions.dart';
+import 'package:websitegyd/view/home.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   var routingdata = settings.name.getRoutingData;
@@ -16,7 +17,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case ContactPageRoute:
       return _getPageRoute(ContactUs(), settings);
     default:
-      return _getPageRoute(HomePage(), settings);
+      return _getPageRoute(ErrorPage(), settings);
   }
 }
 

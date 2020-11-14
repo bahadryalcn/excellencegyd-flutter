@@ -86,19 +86,19 @@ class UniversalStrings {
     false,
   ];
   static const List<String> imagesCarousel = [
-    'assets/images/asia.jpg',
-    'assets/images/africa.jpg',
-    'assets/images/europe.jpg',
-    'assets/images/south_america.jpg',
+    'assets/images/image1.jpg',
+    'assets/images/image2.jpg',
+    'assets/images/image3.jpg',
+    'assets/images/image4.jpg',
     'assets/images/australia.jpg',
     'assets/images/antarctica.jpg',
   ];
 
   static const List<String> placesCarousel = [
-    'ASIA',
-    'AFRICA',
-    'EUROPE',
-    'SOUTH AMERICA',
+    'Image 1',
+    'Image 2',
+    'Image 3',
+    'Image 4',
     'AUSTRALIA',
     'ANTARCTICA',
   ];
