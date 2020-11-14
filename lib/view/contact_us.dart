@@ -19,7 +19,6 @@ class ContactUs extends StatelessWidget {
       ),
       column: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        // crossAxisAlignment: CrossAxisAlignment.,
         children: [
           Container(
             padding: const EdgeInsets.all(16),
@@ -31,24 +30,22 @@ class ContactUs extends StatelessWidget {
               child: ContactCardItem(),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(16),
-            height: screenSize.height * 0.3,
-            width: screenSize.width * 0.3,
-            child: Card(
-              elevation: 10,
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(16),
-            height: screenSize.height * 0.3,
-            width: screenSize.width * 0.3,
-            child: Card(
-              elevation: 10,
-            ),
-          ),
-          // DestinationHeading(),
-          // DestinationCarousel(),
+          // Container(
+          //   padding: const EdgeInsets.all(16),
+          //   height: screenSize.height * 0.3,
+          //   width: screenSize.width * 0.3,
+          //   child: Card(
+          //     elevation: 10,
+          //   ),
+          // ),
+          // Container(
+          //   padding: const EdgeInsets.all(16),
+          //   height: screenSize.height * 0.3,
+          //   width: screenSize.width * 0.3,
+          //   child: Card(
+          //     elevation: 10,
+          //   ),
+          // ),
         ],
       ),
     );

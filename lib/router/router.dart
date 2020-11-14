@@ -22,7 +22,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 }
 
 PageRoute _getPageRoute(Widget child, RouteSettings settings) {
-  return _FadeRoute(child: child, routeName: settings.name);
+  return _FadeRoute(
+    child: child,
+    routeName: settings.name,
+  );
 }
 
 class _FadeRoute extends PageRouteBuilder {

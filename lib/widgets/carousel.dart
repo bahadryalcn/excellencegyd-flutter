@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:transparent_image/transparent_image.dart';
 import 'package:websitegyd/constants/strings.dart';
 import 'package:websitegyd/widgets/responsive.dart';
 
@@ -18,10 +17,9 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
         .map(
           (element) => ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
-            child: FadeInImage.memoryNetwork(
-              image: element,
+            child: Image.asset(
+              element,
               fit: BoxFit.cover,
-              placeholder: kTransparentImage,
             ),
           ),
         )
