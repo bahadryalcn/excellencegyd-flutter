@@ -3,7 +3,9 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "assets/AssetManifest.json": "d3f4e93216bb9d7aef5c117609efcfd2",
+  "about/index.html": "2bf5d25f502c122a104e8ba0bd16485b",
+"/": "faab399e7b78f821e4b9e9b742bc50eb",
+"assets/AssetManifest.json": "d3f4e93216bb9d7aef5c117609efcfd2",
 "assets/assets/images/africa.jpg": "27fc2c6667bd5bd7bba8117fafe28d86",
 "assets/assets/images/antarctica.jpg": "71e86242fca831839833d1caa23f107e",
 "assets/assets/images/asia.jpg": "bbcf97c1be29e77360e8407b7e2eaa05",
@@ -50,9 +52,8 @@ const RESOURCES = {
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
-"index.html": "9270c6cd076afff66357475fdff9db5d",
-"/": "9270c6cd076afff66357475fdff9db5d",
-"main.dart.js": "ae79b6f78302dd1f1fde7500491359e3",
+"index.html": "faab399e7b78f821e4b9e9b742bc50eb",
+"main.dart.js": "bdb2aa38632a5203a25cefd75eb56776",
 "manifest.json": "613eea28c8381541ab210009ed05758c",
 "version.json": "6633be12469a725d57465ca444e538f2"
 };
