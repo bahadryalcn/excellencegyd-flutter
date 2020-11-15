@@ -1,11 +1,49 @@
 <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <base href="/">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Excellence GYD Web site.">
+  <meta name="keywords" content="Excellence, GYD , Web, site">
+  <meta name="author" content="Bahadır Halil Yalçın">
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="websitegyd">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <title>Excellence GYD</title>
+  <link rel="manifest" href="manifest.json">
+  <!-- Favicon -->
+  <!-- <link rel="icon" type="image/png" href="favicon.png" /> -->
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+
+
+</head>
+
+<body id="app-container">
+  <script defer src="main.dart.js" type="application/javascript"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("/flutter_service_worker.js");
+      });
+    }
+  </script>
+  <!-- Content -->
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <base href="/">
-    <base href="/home/">
-    <base href="/contact/">
-    <base href="/about/">
-    <base href="/error_page/">
     <meta charset="UTF-8">
     <title>Excellence GYD</title>
   </head>
@@ -19,4 +57,4 @@
       }
 </script>
   </body>
-</html>
+</html> -->

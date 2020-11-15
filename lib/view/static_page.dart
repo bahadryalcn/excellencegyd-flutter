@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:websitegyd/router/router.dart';
 import 'package:websitegyd/services/localization_services.dart';
 import 'package:websitegyd/view/error_page.dart';
 import 'package:websitegyd/widgets/bottom_bar.dart';
@@ -17,10 +18,13 @@ class StaticPage extends StatefulWidget {
     Key key,
     @required this.stack,
     @required this.column,
+    @required this.scaffoldKey,
   }) : super(key: key);
 
   final Widget stack;
   final Widget column;
+  final Key scaffoldKey;
+
   @override
   _StaticPageState createState() => _StaticPageState();
 }
@@ -65,7 +69,7 @@ class _StaticPageState extends State<StaticPage> {
               return Scaffold(
                 backgroundColor: Theme.of(context).backgroundColor,
                 appBar: buildAppBar(context),
-                key: scaffoldLayoutTempKey,
+                key: widget.scaffoldKey,
                 drawer: ResponsiveWidget.isSmallScreen(context)
                     ? MobileDrawer()
                     : null,

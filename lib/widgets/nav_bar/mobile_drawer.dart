@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:websitegyd/constants/strings.dart';
-import 'package:websitegyd/router/route_names.dart';
 import 'package:get/get.dart';
+import 'package:websitegyd/view/about_us.dart';
+import 'package:websitegyd/view/contact_us.dart';
+import 'package:websitegyd/view/home.dart';
 import 'package:websitegyd/widgets/navbar_item/language_dropdown_menu.dart';
 import 'package:websitegyd/widgets/navbar_item/nav_bar_item.dart';
 import '../navbar_item/nav_bar_sizedbox.dart';
@@ -31,15 +33,23 @@ class _MobileDrawerState extends State<MobileDrawer> {
               LanguageDropDownMenu(),
               NavBarSizedBox(20),
               NavBarSizedBox(20),
-              NavBarItem('home_page'.tr, Icons.home, HomePageRoute),
+              // NavBarItem('home_page'.tr, Icons.home, HomePageRoute),
+              NavBarItem(
+                  'home_page'.tr, null, HomePage(), HomePage.route(), '/home'),
               buildMobileDrawerDiveder(context),
-              NavBarItem('contact_us'.tr, Icons.contact_page, ContactPageRoute),
-              NavBarItem('about_us'.tr, Icons.ac_unit, AboutPageRoute),
+              // NavBarItem('contact_us'.tr, Icons.contact_page, ContactPageRoute),
+              NavBarItem('contact_us'.tr, null, ContactUs(), ContactUs.route(),
+                  '/contact'),
+              NavBarItem(
+                  'about_us'.tr, null, AboutUs(), AboutUs.route(), '/about'),
+              // NavBarItem('about_us'.tr, Icons.ac_unit, AboutPageRoute),
               Expanded(
                 child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: NavBarItem(
-                        'copyright'.tr, Icons.copyright, AboutPageRoute)),
+                  alignment: Alignment.bottomCenter,
+                  child: NavBarItem('copyright'.tr, Icons.copyright, HomePage(),
+                      HomePage.route(), '/home'),
+                  // NavBarItem('copyright'.tr, Icons.copyright, AboutPageRoute),
+                ),
               ),
             ],
           ),

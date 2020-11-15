@@ -57,13 +57,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.25"
-  boolean_selector:
-    dependency: transitive
-    description:
-      name: boolean_selector
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.0-nullsafety.1"
   build:
     dependency: transitive
     description:
@@ -169,13 +162,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
-  clock:
-    dependency: transitive
-    description:
-      name: clock
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0-nullsafety.1"
   code_builder:
     dependency: transitive
     description:
@@ -225,13 +211,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-  fake_async:
-    dependency: transitive
-    description:
-      name: fake_async
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.0-nullsafety.1"
   ffi:
     dependency: transitive
     description:
@@ -286,10 +265,14 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
-  flutter_test:
-    dependency: "direct dev"
-    description: flutter
-    source: sdk
+  flutter_web:
+    dependency: "direct main"
+    description:
+      path: "packages/flutter_web"
+      ref: HEAD
+      resolved-ref: c04fb502b842859de07e36954a9390465a5426c0
+      url: "https://github.com/flutter/flutter_web"
+    source: git
     version: "0.0.0"
   flutter_web_plugins:
     dependency: "direct main"
@@ -303,6 +286,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.3"
+  flutter_web_ui:
+    dependency: "direct main"
+    description:
+      path: "packages/flutter_web_ui"
+      ref: HEAD
+      resolved-ref: c04fb502b842859de07e36954a9390465a5426c0
+      url: "https://github.com/flutter/flutter_web"
+    source: git
+    version: "0.0.0"
   get:
     dependency: "direct main"
     description:
@@ -345,6 +337,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.6"
+  history:
+    dependency: "direct main"
+    description:
+      name: history
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   http:
     dependency: "direct main"
     description:
@@ -756,13 +755,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0-nullsafety.1"
-  test_api:
-    dependency: transitive
-    description:
-      name: test_api
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.19-nullsafety.2"
   timing:
     dependency: transitive
     description:

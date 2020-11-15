@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:websitegyd/constants/strings.dart';
 import 'package:get/get.dart';
-
-import 'package:websitegyd/router/route_names.dart';
+import 'package:websitegyd/view/about_us.dart';
+import 'package:websitegyd/view/contact_us.dart';
+import 'package:websitegyd/view/home.dart';
 import 'package:websitegyd/widgets/navbar_item/change_theme.dart';
 import 'package:websitegyd/widgets/navbar_item/language_dropdown_menu.dart';
 import 'package:websitegyd/widgets/navbar_item/nav_bar_item.dart';
@@ -34,18 +35,26 @@ class DesktopNavigationBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   NavBarSizedBox(30),
-                  NavBarItem('home_page'.tr, null, HomePageRoute),
+                  NavBarItem('home_page'.tr, null, HomePage(),
+                      HomePage.routeAnim(), '/home'),
+                  // NavBarItem('home_page'.tr, null, HomePageRoute),
                   NavBarSizedBox(30),
-                  NavBarItem('contact_us'.tr, null, ContactPageRoute),
+                  NavBarItem('contact_us'.tr, null, ContactUs(),
+                      ContactUs.routeAnim(), '/contact'),
+                  // NavBarItem('contact_us'.tr, null, ContactPageRoute),
                   NavBarSizedBox(50),
-                  NavBarItem('about_us'.tr, null, AboutPageRoute),
+                  NavBarItem('about_us'.tr, null, AboutUs(),
+                      AboutUs.routeAnim(), '/about'),
+                  // NavBarItem('about_us'.tr, null, AboutPageRoute),
                 ],
               ),
             ),
             // NavBarSizedBox(screenSize.width / ),
             ChangeThemeButton(),
             NavBarSizedBox(50),
-            NavBarItem('sign_in_button'.tr, null, HomePageRoute),
+            NavBarItem('sign_in_button'.tr, null, HomePage(),
+                HomePage.routeAnim(), '/home'),
+            // NavBarItem('sign_in_button'.tr, null, HomePageRoute),
             NavBarSizedBox(50),
             LanguageDropDownMenu()
           ],

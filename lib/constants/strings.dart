@@ -86,12 +86,12 @@ class UniversalStrings {
     false,
   ];
   static const List<String> imagesCarousel = [
-    '/assets/images/image1.jpg',
-    '/assets/images/image2.jpg',
-    '/assets/images/image3.jpg',
-    '/assets/images/image4.jpg',
-    '/assets/images/australia.jpg',
-    '/assets/images/antarctica.jpg',
+    'assets/images/image1.jpg',
+    'assets/images/image2.jpg',
+    'assets/images/image3.jpg',
+    'assets/images/image4.jpg',
+    'assets/images/australia.jpg',
+    'assets/images/antarctica.jpg',
   ];
 
   static const List<String> placesCarousel = [

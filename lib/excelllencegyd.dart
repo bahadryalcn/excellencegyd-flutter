@@ -1,13 +1,15 @@
-import 'package:websitegyd/router/route_names.dart';
-import 'package:websitegyd/router/router.dart';
+import 'package:websitegyd/locator.dart';
 import 'package:websitegyd/services/localization_services.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:get/get.dart';
 import 'package:websitegyd/services/navigation_service.dart';
+import 'package:websitegyd/view/about_us.dart';
+import 'package:websitegyd/view/contact_us.dart';
+import 'package:websitegyd/view/error_page.dart';
+import 'package:websitegyd/view/home.dart';
 import 'package:websitegyd/view/layout_template.dart';
-
-import 'locator.dart';
+import 'package:websitegyd/view/static_page.dart';
 
 class ExcellenceGYD extends StatefulWidget {
   @override
@@ -33,18 +35,33 @@ class _ExcellenceGYDState extends State<ExcellenceGYD> {
 
   GetMaterialApp buildGetMaterialApp(ThemeData data) {
     return GetMaterialApp(
-      builder: (context, child) {
-        return LayoutTemplate(
-          child: child,
-        );
-      },
+      // builder: (context, child) {
+      //   return StaticPage(
+      //     stack: child,
+      //     column: child,
+      //   );
+      // },
       theme: data,
       debugShowCheckedModeBanner: false,
       title: "Excellence GYD",
-      navigatorKey: locator<NavigationService>().navigatorKey,
-      onGenerateRoute: generateRoute,
-      initialRoute: HomePageRoute,
-      home: LayoutTemplate(),
+      // navigatorKey: locator<NavigationService>().navigatorKey,
+      // onGenerateRoute: generateRoute,
+      // initialRoute: HomePageRoute,
+      onGenerateRoute: (settings) {
+        print(settings.name);
+        switch (settings.name) {
+          case "/home":
+            return HomePage.routeAnim();
+          case "/about":
+            return AboutUs.routeAnim();
+          case "/contact":
+            return ContactUs.routeAnim();
+          // default:
+          //   return ErrorPage.routeAnim();
+        }
+      },
+      initialRoute: "/home",
+      // home: LayoutTemplate(),
       translations: LocalizationService(),
       fallbackLocale: LocalizationService.fallbackLocale,
       locale: LocalizationService.locale,
